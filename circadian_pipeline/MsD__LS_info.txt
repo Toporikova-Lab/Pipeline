@@ -1,0 +1,271 @@
+
+
+Lomb-Scargle information for Spider Sp01 
+
+Periods under top local maxima frequencies:
+1: 21.920454545454547
+2: 36.56872037914692
+3: 27.33746678476528
+The Lomb-Scargle approximation of the period is 21.89712664065271 hours.
+The False Alarm Probability for this prediction is: 1.6228056525860395e-37
+
+Lomb-Scargle information for Spider Sp02 
+
+Periods under top local maxima frequencies:
+1: 20.19895287958115
+2: 15.451314142678346
+3: 43.99714896650036
+The Lomb-Scargle approximation of the period is 20.17914351095129 hours.
+The False Alarm Probability for this prediction is: 1.2739807982241303e-10
+
+Lomb-Scargle information for Spider Sp03 
+
+Periods under top local maxima frequencies:
+1: 23.07588785046729
+2: 16.46519071752467
+3: 12.602694977541853
+The Lomb-Scargle approximation of the period is 23.05003734129948 hours.
+The False Alarm Probability for this prediction is: 3.314626968372966e-36
+
+Lomb-Scargle information for Spider Sp04 
+
+Periods under top local maxima frequencies:
+1: 22.921648718900855
+2: 18.7452171272396
+3: 29.834702754954083
+The Lomb-Scargle approximation of the period is 22.896142433234424 hours.
+The False Alarm Probability for this prediction is: 1.2794732953135687e-74
+
+Lomb-Scargle information for Spider Sp05 
+
+Periods under top local maxima frequencies:
+1: 22.79468242245199
+2: 39.51856594110115
+3: 28.3546164446486
+The Lomb-Scargle approximation of the period is 22.769457764662487 hours.
+The False Alarm Probability for this prediction is: 2.494462732229957e-22
+
+Lomb-Scargle information for Spider Sp06 
+
+Periods under top local maxima frequencies:
+1: 22.4220849981838
+2: 18.69412477286493
+3: 16.154933263543573
+The Lomb-Scargle approximation of the period is 22.397677793904208 hours.
+The False Alarm Probability for this prediction is: 3.378009317916969e-104
+
+Lomb-Scargle information for Spider Sp07 
+
+Periods under top local maxima frequencies:
+1: 23.632465543644717
+2: 12.098784790278321
+3: 40.45085190039318
+The Lomb-Scargle approximation of the period is 23.605353728489483 hours.
+The False Alarm Probability for this prediction is: 6.309431204691339e-15
+
+Lomb-Scargle information for Spider Sp08 
+
+Periods under top local maxima frequencies:
+1: 22.18038088393819
+2: 29.075836081017425
+3: 17.651701458392907
+The Lomb-Scargle approximation of the period is 22.156496769562096 hours.
+The False Alarm Probability for this prediction is: 6.519980828217674e-26
+
+Lomb-Scargle information for Spider Sp09 
+
+Periods under top local maxima frequencies:
+1: 21.1324888736734
+2: 28.511778290993075
+3: 37.23039806996381
+The Lomb-Scargle approximation of the period is 21.11080711354309 hours.
+The False Alarm Probability for this prediction is: 8.244835722385822e-24
+
+Lomb-Scargle information for Spider Sp10 
+
+Periods under top local maxima frequencies:
+1: 23.962732919254655
+2: 18.575985555221184
+3: 34.141592920353986
+The Lomb-Scargle approximation of the period is 23.934858472276073 hours.
+The False Alarm Probability for this prediction is: 7.568956139419223e-59
+
+Lomb-Scargle information for Spider Sp11 
+
+Periods under top local maxima frequencies:
+1: 22.52024808464064
+2: 13.711239449133718
+3: 15.698880976602236
+The Lomb-Scargle approximation of the period is 22.495626822157433 hours.
+The False Alarm Probability for this prediction is: 6.4930752744617e-55
+
+Lomb-Scargle information for Spider Sp12 
+
+Periods under top local maxima frequencies:
+1: 22.669114946749907
+2: 30.273663560568906
+3: 43.07606420097697
+The Lomb-Scargle approximation of the period is 22.644167278063094 hours.
+The False Alarm Probability for this prediction is: 8.636999843391631e-38
+
+Lomb-Scargle information for Spider Sp13 
+
+Periods under top local maxima frequencies:
+1: 44.762871646120374
+2: 21.440778047933307
+3: 14.203405430280718
+The Lomb-Scargle approximation of the period is 44.6657018813314 hours.
+The False Alarm Probability for this prediction is: 7.364850621773814e-27
+
+Lomb-Scargle information for Spider Sp14 
+
+Periods under top local maxima frequencies:
+1: 22.94721189591078
+2: 18.475905417539657
+3: 14.154551708323778
+The Lomb-Scargle approximation of the period is 22.921648718900855 hours.
+The False Alarm Probability for this prediction is: 6.101672786778385e-41
+
+Lomb-Scargle information for Spider Sp15 
+
+Periods under top local maxima frequencies:
+1: 24.018677042801556
+2: 19.90583682683005
+3: 30.45288603848051
+The Lomb-Scargle approximation of the period is 23.990672366886905 hours.
+The False Alarm Probability for this prediction is: 1.777665021574555e-15
+
+Lomb-Scargle information for Spider Sp16 
+
+Periods under top local maxima frequencies:
+1: 23.153788447111772
+2: 47.120610687022904
+3: 32.01659751037344
+The Lomb-Scargle approximation of the period is 23.127763207193706 hours.
+The False Alarm Probability for this prediction is: 4.651443002113451e-49
+
+Lomb-Scargle information for Spider Sp17 
+
+Periods under top local maxima frequencies:
+1: 21.17598627787307
+2: 27.22893692104102
+3: 35.37421203438395
+The Lomb-Scargle approximation of the period is 21.154215215901303 hours.
+The False Alarm Probability for this prediction is: 2.035633758240684e-14
+
+Lomb-Scargle information for Spider Sp18 
+
+Periods under top local maxima frequencies:
+1: 22.397677793904208
+2: 18.133960047003523
+3: 30.052580331061343
+The Lomb-Scargle approximation of the period is 22.37332366799565 hours.
+The False Alarm Probability for this prediction is: 5.049092650719258e-78
+
+Lomb-Scargle information for Spider Sp19 
+
+Periods under top local maxima frequencies:
+1: 21.850619469026547
+2: 17.81986143187067
+3: 15.382008472464488
+The Lomb-Scargle approximation of the period is 21.827439886845823 hours.
+The False Alarm Probability for this prediction is: 1.6017091466652569e-24
+
+Lomb-Scargle information for Spider Sp20 
+
+Periods under top local maxima frequencies:
+1: 22.10888252148997
+2: 17.975538730343622
+3: 29.366317792578496
+The Lomb-Scargle approximation of the period is 22.08515205724508 hours.
+The False Alarm Probability for this prediction is: 3.82713115367039e-108
+
+Lomb-Scargle information for Spider Sp21 
+
+Periods under top local maxima frequencies:
+1: 24.04674717569147
+2: 32.471330878485006
+3: 45.056934306569346
+The Lomb-Scargle approximation of the period is 24.018677042801556 hours.
+The False Alarm Probability for this prediction is: 1.353487360880031e-119
+
+Lomb-Scargle information for Spider Sp22 
+
+Periods under top local maxima frequencies:
+1: 23.31117824773414
+2: 18.165979988228372
+3: 31.62295081967213
+The Lomb-Scargle approximation of the period is 23.2847981893625 hours.
+The False Alarm Probability for this prediction is: 4.096800290119254e-87
+
+Lomb-Scargle information for Spider Sp23 
+
+Periods under top local maxima frequencies:
+1: 24.622257678500198
+2: 12.271968190854869
+3: 32.57414248021108
+The Lomb-Scargle approximation of the period is 24.59282868525896 hours.
+The False Alarm Probability for this prediction is: 1.6230875668593817e-20
+
+Lomb-Scargle information for Spider Sp24 
+
+Periods under top local maxima frequencies:
+1: 23.41729893778452
+2: 18.81377628771716
+3: 41.93478260869565
+The Lomb-Scargle approximation of the period is 23.390678287230013 hours.
+The False Alarm Probability for this prediction is: 1.0770939998762141e-62
+
+Lomb-Scargle information for Spider Sp25 
+
+Periods under top local maxima frequencies:
+1: 22.59443631039531
+2: 13.042045214451722
+3: 17.501559398922595
+The Lomb-Scargle approximation of the period is 22.56965265082267 hours.
+The False Alarm Probability for this prediction is: 9.83000904699596e-08
+
+Lomb-Scargle information for Spider Sp26 
+
+Periods under top local maxima frequencies:
+1: 23.127763207193706
+2: 12.338197081750948
+3: 18.295198577356253
+The Lomb-Scargle approximation of the period is 23.101796407185624 hours.
+The False Alarm Probability for this prediction is: 2.367812282820124e-26
+
+Lomb-Scargle information for Spider Sp27 
+
+Periods under top local maxima frequencies:
+1: 21.1324888736734
+2: 44.86046511627907
+3: 31.526046986721145
+The Lomb-Scargle approximation of the period is 21.11080711354309 hours.
+The False Alarm Probability for this prediction is: 8.172806758967022e-28
+
+Lomb-Scargle information for Spider Sp28 
+
+Periods under top local maxima frequencies:
+1: 23.179872324446112
+2: 30.09653827401268
+3: 40.61052631578947
+The Lomb-Scargle approximation of the period is 23.153788447111772 hours.
+The False Alarm Probability for this prediction is: 3.2326370347315987e-44
+
+Lomb-Scargle information for Spider Sp29 
+
+Periods under top local maxima frequencies:
+1: 22.870692849203408
+2: 14.322041763341067
+3: 13.058599534588533
+The Lomb-Scargle approximation of the period is 22.845299777942262 hours.
+The False Alarm Probability for this prediction is: 9.610753338820543e-23
+
+Lomb-Scargle information for Spider Sp30 
+
+Periods under top local maxima frequencies:
+1: 23.02424468481909
+2: 30.956870611835505
+3: 13.504266024939838
+The Lomb-Scargle approximation of the period is 22.99850968703428 hours.
+The False Alarm Probability for this prediction is: 9.901712924170761e-43
