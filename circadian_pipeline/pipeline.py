@@ -12,8 +12,10 @@ def main():
     result_type_ls = str(sys.argv[3])
     logbook = str(sys.argv[4])
 
+    logbook_df, logbook_subjects, logbook_groups = data_cleaning.logbook_generator(logbook)
+
     #Create dataframe
-    df, logbook_spiders = data_cleaning.data_organizer(filename, logbook)
+    df, logbook_subjects, logbook_df = data_cleaning.data_organizer(filename, logbook_subjects, logbook_df)
 
     #Get information from the name of the csv file
     group_name, light_condition, start_date, end_date, path, two_lights = data_cleaning.info_from_naming_pattern(filename)
@@ -22,7 +24,7 @@ def main():
     condition_days, condition_keys = data_cleaning.light_code(df)
 
     #Resample data to pass into raster plot
-    df_processed = data_cleaning.resample_df_six_mins(df, logbook_spiders, binarize = binarized)
+    df_processed = data_cleaning.resample_df_six_mins(df, logbook_subjects, binarize = binarized)
 
     df.set_index('Time', inplace=True)
 
@@ -57,8 +59,8 @@ def main():
     """
 
     with open(filepath, "w") as info_file:
-        print(logbook_spiders)
-        for spider in logbook_spiders:
+        print(logbook_subjects)
+        for spider in logbook_subjects:
             print(spider[:-4])
             print(spider[-3:])
             raster.raster_plot(df_processed, spider, group_name, end_date, raster_path, condition_days, average_raster=True)
