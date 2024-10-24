@@ -42,6 +42,11 @@ def logbook_generator(logbook_file=None):
 
         logbook_df.set_index('Channel', inplace=True)
         logbook_groups = logbook_df["Specie abbreviation"].unique()
+        
+        if len(logbook_groups) == 1:
+            naming_pattern = logbook_groups[0]
+        else:
+            naming_pattern = "Mixed"
 
         logbook_subjects = []
 
@@ -53,7 +58,7 @@ def logbook_generator(logbook_file=None):
         # Creating columns for each spider
 
     
-    return logbook_df, logbook_subjects, logbook_groups
+    return logbook_df, logbook_subjects, logbook_groups, naming_pattern
 
 
 def data_organizer(file_name, logbook_subjects, logbook_df):
