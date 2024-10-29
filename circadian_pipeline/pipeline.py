@@ -11,17 +11,38 @@ def main():
     binarized = bool(sys.argv[2])
     result_type_ls = str(sys.argv[3])
     logbook = str(sys.argv[4])
+    provided_group_name = str(sys.argv[5])
 
-    logbook_df, logbook_subjects, logbook_groups = data_cleaning.logbook_generator(logbook)
+    if logbook == "None":
+        logbook = None
+
+    if logbook is not None:
+        provided_group_name = None
+
+    logbook_df, logbook_subjects, logbook_groups, naming_pattern = data_cleaning.logbook_generator(logbook)
 
     #Create dataframe
-    df, logbook_subjects, logbook_df = data_cleaning.data_organizer(filename, logbook_subjects, logbook_df)
+    df, logbook_subjects, logbook_df, flawed_data, num_deleted_rows, start_date, end_date = data_cleaning.data_organizer(filename, logbook_subjects, logbook_df)
 
+    if num_deleted_rows > 0:
+        print("Number of deleted rows due to flaws in data:", num_deleted_rows)
+
+        print(flawed_data)
+
+    """
     #Get information from the name of the csv file
     group_name, light_condition, start_date, end_date, path, two_lights = data_cleaning.info_from_naming_pattern(filename)
+    """
 
     #Using the "Light" column, determine the LD, DD, and LL days of the experiment
-    condition_days, condition_keys = data_cleaning.light_code(df)
+    condition_days, condition_keys, light_condition = data_cleaning.light_code(df)
+
+
+    path = group_name + "_" + light_condition + "_" + end_date
+        # The path combines the group name, light condition, and
+        # end date of the experiment
+        # It is later used to create folders to store graphs in
+
 
     #Resample data to pass into raster plot
     df_processed = data_cleaning.resample_df_six_mins(df, logbook_subjects, binarize = binarized)

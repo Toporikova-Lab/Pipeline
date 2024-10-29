@@ -24,9 +24,11 @@ def logbook_generator(logbook_file=None):
         channels = np.arange(1, 33)
         logbook_subjects = [f"Subj{i}" for i in range(1, 33)]
 
-        logbook_df = pd.DataFrame({"Channel": channels, "Subject name": logbook_subjects})
+        logbook_df = pd.DataFrame({"Channel": channels, "Subject Name": logbook_subjects})
 
         logbook_groups = ["Unknown"]
+
+        naming_pattern = "Unknown"
 
     else:
         logbook_df = pd.read_excel(logbook_file, header=0)
@@ -34,7 +36,7 @@ def logbook_generator(logbook_file=None):
         logbook_sp_names = []
         
         for index, row in logbook_df.iterrows():
-            logbook_sp_names.append(f"{row['Specie abbreviation']}{row['Subject ID']:02d}_C{row["Channel"]:02d}")
+            logbook_sp_names.append(f"{row['Specie abbreviation']}{str(row['Subject ID']):02s}_C{row["Channel"]:02d}")
 
         logbook_df['Subject Name'] = logbook_sp_names
 
@@ -52,7 +54,7 @@ def logbook_generator(logbook_file=None):
 
         for i in range(1, 33):
             if i in logbook_channels:
-                logbook_subjects.append(logbook_df.loc[i, 'Spider Name'])
+                logbook_subjects.append(logbook_df.loc[i, 'Subject Name'])
             else:
                 logbook_subjects.append(f"Subj{i:02d}")
         # Creating columns for each spider
@@ -103,6 +105,15 @@ def data_organizer(file_name, logbook_subjects, logbook_df):
                                          second=df['Time'].dt.second))
     # Combining the "Time" and "Date" columns to create a new "Time" column, which has the exact time to minute in the "datetime" module
     
+    flawed_data = df[df["MonStatus"] != 1]
+    num_deleted_rows = len(flawed_data)
+    df = df[df["MonStatus"] == 1]
+    # Finding the times when the monitor was not functional and removing these rows for cleaner data.
+    # Additionally, reporting to the user how many minutes of data were lost
+
+    start_date = df['Date'].iloc[0]
+    end_date = df['Date'].iloc[-1]
+
     df = df.drop(["DateD", "DateM", "DateY", "Date", "MonStatus", "Extras", "MonN", "TubeN", "DataType", "Unused"], axis=1)
     # Removing the columns in the dataframe that are not needed for further analysis
     
@@ -115,27 +126,17 @@ def data_organizer(file_name, logbook_subjects, logbook_df):
     for name in logbook_subjects:
         if df[name].sum() < 10:
             df = df.drop([name], axis=1)
-            logbook_subjects.pop(name)
+            logbook_subjects.remove(name)
             dropped_subjects += name
 
-    logbook_df = logbook_df[~logbook_df['Subject name'].isin(dropped_subjects)]
+    logbook_df = logbook_df[~logbook_df['Subject Name'].isin(dropped_subjects)]
    
     # Excluding the channels that do not show more than 10 activity counts
     # 10 count cutoff aims to disregard the noise during the experiment setup
     # Creating a list of subjects that show activity in the experiment
 
-    return df, logbook_subjects, logbook_df
+    return df, logbook_subjects, logbook_df, flawed_data, num_deleted_rows, start_date, end_date
     # The function returns the dataframe and the channel numbers of the subjects
-
-def get_deleted_data(df) :
-    """
-    Finding the times when the monitor was not functional and removing these rows for cleaner data.
-    Additionally, reporting to the user how many minutes of data were lost
-    """
-    deleted_data = df[df["MonStatus"] != 1]
-    num_rows = len(deleted_data)
-    df = df[df["MonStatus"] == 1]
-    return num_rows, deleted_data, df
 
 
 def light_code(df):
@@ -148,7 +149,7 @@ def light_code(df):
     """
     LL_days = []
     LD_days = []
-    
+
     for j in range(1, len(df['Day'].unique()) + 1):
         curr_df = df[df['Day']==j]
     
@@ -177,11 +178,23 @@ def light_code(df):
     condition_keys = [key for key in condition_days if condition_days[key]]
     # Determining which light conditions are present in the experiment
 
-    return condition_days, condition_keys
+    light_condition = ""
+
+    for key in condition_keys:
+        light_condition += str(key)
+        light_condition += "-"
+    
+    light_condition = light_condition[:-1]
+
+    return condition_days, condition_keys, light_condition
     # This function returns the light conditions in the experiment
     # and the days of each light condition
 
+
+
+"""
 def info_from_naming_pattern(file_name):
+    """
     """
     This function takes in a file name in the format
     of "group name + light condition + start date +
@@ -192,6 +205,7 @@ def info_from_naming_pattern(file_name):
     Then it creates a naming pattern for folders and files,
     so that it is easier to navigate the output of
     graphs from later functions
+    """
     """
 
     group_name = file_name.split(' ', 2)[0]
@@ -217,14 +231,19 @@ def info_from_naming_pattern(file_name):
     # The function returns the group name, experimental light conditions, 
     # start date, end date, the folder path, and whether there are two
     # light conditions in the experiment
+"""
 
-def resample_df_six_mins(df, logbook_spiders, binarize = False):
+
+
+def resample_df_six_mins(df, logbook_subjects, binarize = False):
     """
     This function resamples the data frame into 6 minute
     pieces, which helps to better visualize sparse data.
     Additionally, it allows the user to then binarize the
     resampled data
     """
+
+    print(logbook_subjects)
 
     df_res = df.copy()
     df_res.set_index('Time', inplace=True)
@@ -233,20 +252,27 @@ def resample_df_six_mins(df, logbook_spiders, binarize = False):
     ###spider_columns = [f"Sp{sp:02d}" for sp in spiders]
     # Figuring out which columns need to be resampled
 
-    df_resampled = df_res[logbook_spiders].resample('6T').sum()
+    duplicates = df_res[df_res.index.duplicated(keep=False)]
+    if not duplicates.empty:
+        print("Duplicate index values found:")
+        print(duplicates)
+        print("\nUnique duplicate index values:")
+        print(duplicates.index.unique())
+
+    df_resampled = df_res[logbook_subjects].resample('6min').sum()
     #df_resampled = df_res[spider_columns].resample('6T').sum()
     # Resampling the spider columns for every 6 minutes,
     # adding up all the counts
 
-    day_resampled = df_res['Day'].resample('6T').bfill()
-    light_resampled = df_res['Light'].resample('6T').bfill()
+    day_resampled = df_res['Day'].resample('6min').bfill()
+    light_resampled = df_res['Light'].resample('6min').bfill()
     # Resampling the day and light columns by removing the
     # 5 rows below each time point
 
 
     #if binarize = True, binarize dataframe
     if binarize:
-        df_binary = df_resampled[logbook_spiders].map(convert_to_one)
+        df_binary = df_resampled[logbook_subjects].map(convert_to_one)
         df_binary.insert(0, "Day", day_resampled)
         df_binary.insert(1, "Light", light_resampled)
         return df_binary
