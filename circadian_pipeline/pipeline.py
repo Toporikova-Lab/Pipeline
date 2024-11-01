@@ -37,8 +37,9 @@ def main():
     #Using the "Light" column, determine the LD, DD, and LL days of the experiment
     condition_days, condition_keys, light_condition = data_cleaning.light_code(df)
 
+    end_date_str = str(end_date.month) + str(end_date.day)
 
-    path = naming_group + "_" + light_condition + "_" + str(end_date.month) + str(end_date.day)
+    path = naming_group + "_" + light_condition + "_" + end_date_str
 
         # The path combines the group name, light condition, and
         # end date of the experiment
@@ -60,7 +61,7 @@ def main():
         os.makedirs(raster_path)
 
     #display(df_processed)
-    filepath = f"{naming_group}_{end_date.month}{end_date.day}_LS_info.txt"
+    filepath = f"{naming_group}_{end_date_str}_LS_info.txt"
 
     """# Ensure 'Time' column is in datetime format
     if not np.issubdtype(df['Time'].dtype, np.datetime64):
@@ -88,13 +89,13 @@ def main():
             print()
             print(subject)
             print()
-            raster.raster_plot(df_processed, subject, naming_group, end_date, raster_path, condition_days, average_raster=True)
+            raster.raster_plot(df_processed, subject, naming_group, end_date_str, raster_path, condition_days, average_raster=True)
             for light_con in condition_keys:
-                period, fap = lomb_scargle.period_LS(df, subject, light_con, condition_days, info_file, LS_path, end_date, result_type=result_type_ls)
+                period, fap = lomb_scargle.period_LS(df, subject, light_con, condition_days, info_file, LS_path, end_date_str, result_type=result_type_ls)
     
 
 
-    raster.combined_raster(raster_path, naming_group, end_date, figsize=(15, 10))
+    raster.combined_raster(raster_path, naming_group, end_date_str, figsize=(15, 10))
 
 
 if __name__ == "__main__":

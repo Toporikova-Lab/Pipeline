@@ -128,9 +128,15 @@ def data_organizer(file_name, logbook_subjects, logbook_df):
 
     dropped_subjects = []
 
-    print(logbook_subjects)
-    for name in logbook_subjects:
+    print("Here is the list of the logbook subjects:", logbook_subjects)
+    print("Its length is", len(logbook_subjects))
+    copy_logbook_subjects = logbook_subjects.copy()
+
+    looked_at = 0
+    for name in copy_logbook_subjects:
+        print()
         print(name)
+        looked_at += 1
         if df[name].sum() < 10:
             df = df.drop([name], axis=1)
             logbook_subjects.remove(name)
@@ -143,6 +149,8 @@ def data_organizer(file_name, logbook_subjects, logbook_df):
         else:
             print("We kept", name)
 
+    print()
+    print(f"We looked at {looked_at} subjects")
     logbook_df = logbook_df[~logbook_df['Subject Name'].isin(dropped_subjects)]
    
     # Excluding the channels that do not show more than 10 activity counts
