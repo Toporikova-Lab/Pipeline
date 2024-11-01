@@ -19,16 +19,16 @@ import matplotlib.pyplot as plt
 import datetime
 import os
 
-def logbook_generator(logbook_file=None):
+def logbook_generator(logbook_file=None, provided_group_name=None):
     if logbook_file is None:
         channels = np.arange(1, 33)
-        logbook_subjects = [f"Subj{i}" for i in range(1, 33)]
+        logbook_subjects = [f"{provided_group_name}{i:02d}" for i in range(1, 33)]
 
         logbook_df = pd.DataFrame({"Channel": channels, "Subject Name": logbook_subjects})
 
-        logbook_groups = ["Unknown"]
+        logbook_groups = [provided_group_name]
 
-        naming_pattern = "Unknown"
+        naming_group = provided_group_name
 
     else:
         logbook_df = pd.read_excel(logbook_file, header=0)
@@ -36,7 +36,7 @@ def logbook_generator(logbook_file=None):
         logbook_sp_names = []
         
         for index, row in logbook_df.iterrows():
-            logbook_sp_names.append(f"{row['Specie abbreviation']}{str(row['Subject ID']):02s}_C{row["Channel"]:02d}")
+            logbook_sp_names.append(f"{row['Specie abbreviation']}{str(row['Subject ID'])}_C{row["Channel"]:02d}")
 
         logbook_df['Subject Name'] = logbook_sp_names
 
@@ -46,21 +46,26 @@ def logbook_generator(logbook_file=None):
         logbook_groups = logbook_df["Specie abbreviation"].unique()
         
         if len(logbook_groups) == 1:
-            naming_pattern = logbook_groups[0]
+            naming_group = logbook_groups[0]
+        elif provided_group_name is not None:
+            naming_group = provided_group_name
         else:
-            naming_pattern = "Mixed"
+            naming_group = "Mixed"
 
         logbook_subjects = []
+
+        if provided_group_name is None:
+            provided_group_name = "Subj"
 
         for i in range(1, 33):
             if i in logbook_channels:
                 logbook_subjects.append(logbook_df.loc[i, 'Subject Name'])
             else:
-                logbook_subjects.append(f"Subj{i:02d}")
+                logbook_subjects.append(f"{provided_group_name}{i:02d}")
         # Creating columns for each spider
 
     
-    return logbook_df, logbook_subjects, logbook_groups, naming_pattern
+    return logbook_df, logbook_subjects, logbook_groups, naming_group
 
 
 def data_organizer(file_name, logbook_subjects, logbook_df):
@@ -123,11 +128,20 @@ def data_organizer(file_name, logbook_subjects, logbook_df):
 
     dropped_subjects = []
 
+    print(logbook_subjects)
     for name in logbook_subjects:
+        print(name)
         if df[name].sum() < 10:
             df = df.drop([name], axis=1)
             logbook_subjects.remove(name)
             dropped_subjects += name
+            print("We deleted", name)
+        elif df[name].sum() < 100:
+            print("LOOK HERE/nNOT ENOUGH DATA")
+            print("Did not delete, <100", name)
+            print(df[name].sum())
+        else:
+            print("We kept", name)
 
     logbook_df = logbook_df[~logbook_df['Subject Name'].isin(dropped_subjects)]
    
@@ -195,7 +209,7 @@ def light_code(df):
 """
 def info_from_naming_pattern(file_name):
     """
-    """
+"""
     This function takes in a file name in the format
     of "group name + light condition + start date +
     end date + year", as follows
@@ -206,7 +220,8 @@ def info_from_naming_pattern(file_name):
     so that it is easier to navigate the output of
     graphs from later functions
     """
-    """
+
+"""
 
     group_name = file_name.split(' ', 2)[0]
     light_condition = file_name.split(' ', 2)[1]

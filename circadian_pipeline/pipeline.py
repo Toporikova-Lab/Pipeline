@@ -16,10 +16,10 @@ def main():
     if logbook == "None":
         logbook = None
 
-    if logbook is not None:
+    if provided_group_name == "None":
         provided_group_name = None
 
-    logbook_df, logbook_subjects, logbook_groups, naming_pattern = data_cleaning.logbook_generator(logbook)
+    logbook_df, logbook_subjects, logbook_groups, naming_group = data_cleaning.logbook_generator(logbook, provided_group_name)
 
     #Create dataframe
     df, logbook_subjects, logbook_df, flawed_data, num_deleted_rows, start_date, end_date = data_cleaning.data_organizer(filename, logbook_subjects, logbook_df)
@@ -38,7 +38,8 @@ def main():
     condition_days, condition_keys, light_condition = data_cleaning.light_code(df)
 
 
-    path = group_name + "_" + light_condition + "_" + end_date
+    path = naming_group + "_" + light_condition + "_" + str(end_date.month) + str(end_date.day)
+
         # The path combines the group name, light condition, and
         # end date of the experiment
         # It is later used to create folders to store graphs in
@@ -59,7 +60,8 @@ def main():
         os.makedirs(raster_path)
 
     #display(df_processed)
-    filepath = f"{group_name}_{end_date}_LS_info.txt"
+    filepath = f"{naming_group}_{end_date.month}{end_date.day}_LS_info.txt"
+
     """# Ensure 'Time' column is in datetime format
     if not np.issubdtype(df['Time'].dtype, np.datetime64):
         df_processed['Time'] = pd.to_datetime(df['Time'])
@@ -81,16 +83,18 @@ def main():
 
     with open(filepath, "w") as info_file:
         print(logbook_subjects)
-        for spider in logbook_subjects:
-            print(spider[:-4])
-            print(spider[-3:])
-            raster.raster_plot(df_processed, spider, group_name, end_date, raster_path, condition_days, average_raster=True)
+        for subject in logbook_subjects:
+            print()
+            print()
+            print(subject)
+            print()
+            raster.raster_plot(df_processed, subject, naming_group, end_date, raster_path, condition_days, average_raster=True)
             for light_con in condition_keys:
-                period, fap = lomb_scargle.period_LS(df, spider, light_con, condition_days, info_file, LS_path, end_date, result_type=result_type_ls)
+                period, fap = lomb_scargle.period_LS(df, subject, light_con, condition_days, info_file, LS_path, end_date, result_type=result_type_ls)
     
 
 
-    raster.combined_raster(raster_path, group_name, end_date, figsize=(15, 10))
+    raster.combined_raster(raster_path, naming_group, end_date, figsize=(15, 10))
 
 
 if __name__ == "__main__":
