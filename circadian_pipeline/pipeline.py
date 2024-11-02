@@ -37,7 +37,7 @@ def main():
     #Using the "Light" column, determine the LD, DD, and LL days of the experiment
     condition_days, condition_keys, light_condition = data_cleaning.light_code(df)
 
-    end_date_str = str(end_date.month) + str(end_date.day)
+    end_date_str = f"{end_date.month:02d}{end_date.day:02d}"
 
     path = naming_group + "_" + light_condition + "_" + end_date_str
 

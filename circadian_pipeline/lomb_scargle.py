@@ -13,24 +13,24 @@ def datetime_to_jd(dt):
     jd += (hour + minute / 60 + second / 3600) / 24
     return jd
 
-def period_LS(df, spider, light_con, condition_days, info_file, LS_path, end_date, result_type='value'):
+def period_LS(df, subject, light_con, condition_days, info_file, LS_path, end_date, result_type='value'):
     valid_result_types = ['value', 'display', 'save', 'dis+save']
     if result_type not in valid_result_types:
         print("The 'result_type' parameter only takes in 'value', 'display', 'save', 'dis+save'.")
         return None
     
-    info_file.write(f"\n\nLomb-Scargle information for Spider {spider} in {light_con} \n")
+    info_file.write(f"\n\nLomb-Scargle information for Spider {subject} in {light_con} \n")
 
     first_day = condition_days[light_con][0]
     last_day = condition_days[light_con][-1]
     
     curr_df = df[(df["Day"] >= first_day) & (df["Day"] <= last_day)]
 
-    if curr_df[spider].sum() < 10:
+    if curr_df[subject].sum() < 10:
         info_file.write(f"No activity detected in the {light_con} light condition")
         return 0, 0
 
-    activity = np.array(curr_df[spider])
+    activity = np.array(curr_df[subject])
     time = curr_df.index.to_series().apply(datetime_to_jd)
 
     ls = LombScargle(time, activity)
@@ -90,19 +90,19 @@ def period_LS(df, spider, light_con, condition_days, info_file, LS_path, end_dat
         plt.ylabel('Power')
         plt.xlim(12, 49)
         plt.xticks(np.arange(12, 50, 2))
-        plt.title(f'Lomb-Scargle Periodogram for {spider[:-4]} in {light_con}')
+        plt.title(f'Lomb-Scargle Periodogram for {subject} in {light_con}')
         plt.ylim(0, max(power) * 1.1) #Sets the y-axis slightly above max_power
         
         if result_type == 'display':
             plt.show()
 
         elif result_type == 'save':
-            file_path = os.path.join(LS_path, f"LS_{spider[:-4]}_{light_con}_{end_date}.png")
+            file_path = os.path.join(LS_path, f"LS_{subject}_{light_con}_{end_date}.png")
             plt.savefig(file_path)
             plt.close()
 
         else: # result_type == 'dis+save'
-            file_path = os.path.join(LS_path, f"LS_{spider[:-4]}_{light_con}_{end_date}.png")
+            file_path = os.path.join(LS_path, f"LS_{subject}_{light_con}_{end_date}.png")
             plt.savefig(file_path)
             plt.show()
 
