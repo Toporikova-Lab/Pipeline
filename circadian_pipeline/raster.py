@@ -7,13 +7,14 @@ import matplotlib.image as mpimg
 import math
 import re
 
-def raster_plot(df, subject, group_name, end_date, raster_path, condition_days, average_raster=True):
+def raster_plot(df, subject, group_name, end_date, raster_path, condition_days, flawed_data, average_raster=True):
     
     fig23 = plt.figure(figsize=(6, 4))
 
     for j in range(1, len(df['Day'].unique()) + 1):
 
         curr_df = df[df['Day'] == j]
+        curr_flawed = flawed_data[flawed_data['Day'] == j]
 
         ax = fig23.add_subplot(len(df['Day'].unique()), 1, j)
         ax.set_ylabel(j, rotation="horizontal", va="center", ha="right", fontsize=8)
@@ -28,6 +29,10 @@ def raster_plot(df, subject, group_name, end_date, raster_path, condition_days, 
 
         ax.bar(curr_df.index.hour + curr_df.index.minute / 60, 
                curr_df[subject], width=0.05, align='center')
+
+        if not curr_flawed.empty:
+            ax.bar(curr_flawed.index.hour + curr_flawed.index.minute / 60,
+                   [0.1] * len(curr_flawed), width=0.05, align='center', color='red', alpha=0.7)
 
         ax.set_ylim(0, 1.1)
         ax.tick_params(left=False, bottom=False)

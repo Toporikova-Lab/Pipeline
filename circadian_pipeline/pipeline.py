@@ -50,6 +50,9 @@ def main():
     df_processed = data_cleaning.resample_df_six_mins(df, logbook_subjects, binarize = binarized)
 
     df.set_index('Time', inplace=True)
+    flawed_data.set_index('Time', inplace=True)
+
+    print(flawed_data)
 
     raster_path = path + "_raster_plots"
     LS_path = "LS_" + path
@@ -89,7 +92,7 @@ def main():
             print()
             print(subject)
             print()
-            raster.raster_plot(df_processed, subject, naming_group, end_date_str, raster_path, condition_days, average_raster=True)
+            raster.raster_plot(df_processed, subject, naming_group, end_date_str, raster_path, condition_days, flawed_data, average_raster=True)
             for light_con in condition_keys:
                 period, fap = lomb_scargle.period_LS(df, subject, light_con, condition_days, info_file, LS_path, end_date_str, result_type=result_type_ls)
     

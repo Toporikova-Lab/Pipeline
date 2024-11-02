@@ -109,22 +109,23 @@ def data_organizer(file_name, logbook_subjects, logbook_df):
                                          minute=df['Time'].dt.minute,
                                          second=df['Time'].dt.second))
     # Combining the "Time" and "Date" columns to create a new "Time" column, which has the exact time to minute in the "datetime" module
+
+    start_date = df['Date'].iloc[0]
+    end_date = df['Date'].iloc[-1]
     
+    day_map = {day: idx+1 for idx, day in enumerate(df['Time'].dt.day.unique())}
+    df.insert(0, 'Day', df['Time'].dt.day.map(day_map))
+    # Converting the date into experiment day and adding a new column named "Day"
+
+
     flawed_data = df[df["MonStatus"] != 1]
     num_deleted_rows = len(flawed_data)
     df = df[df["MonStatus"] == 1]
     # Finding the times when the monitor was not functional and removing these rows for cleaner data.
     # Additionally, reporting to the user how many minutes of data were lost
 
-    start_date = df['Date'].iloc[0]
-    end_date = df['Date'].iloc[-1]
-
     df = df.drop(["DateD", "DateM", "DateY", "Date", "MonStatus", "Extras", "MonN", "TubeN", "DataType", "Unused"], axis=1)
     # Removing the columns in the dataframe that are not needed for further analysis
-    
-    day_map = {day: idx+1 for idx, day in enumerate(df['Time'].dt.day.unique())}
-    df.insert(0, 'Day', df['Time'].dt.day.map(day_map))
-    # Converting the date into experiment day and adding a new column named "Day"
 
     dropped_subjects = []
 
