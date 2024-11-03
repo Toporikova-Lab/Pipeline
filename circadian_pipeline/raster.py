@@ -7,13 +7,14 @@ import matplotlib.image as mpimg
 import math
 import re
 
-def raster_plot(df, spider, group_name, end_date, raster_path, condition_days, average_raster=True):
+def raster_plot(df, subject, group_name, end_date, raster_path, condition_days, flawed_data, average_raster=True):
     
     fig23 = plt.figure(figsize=(6, 4))
 
     for j in range(1, len(df['Day'].unique()) + 1):
 
         curr_df = df[df['Day'] == j]
+        curr_flawed = flawed_data[flawed_data['Day'] == j]
 
         ax = fig23.add_subplot(len(df['Day'].unique()), 1, j)
         ax.set_ylabel(j, rotation="horizontal", va="center", ha="right", fontsize=8)
@@ -27,7 +28,11 @@ def raster_plot(df, spider, group_name, end_date, raster_path, condition_days, a
                            color='yellow', alpha=0.3)
 
         ax.bar(curr_df.index.hour + curr_df.index.minute / 60, 
-               curr_df[spider], width=0.05, align='center')
+               curr_df[subject], width=0.05, align='center')
+
+        if not curr_flawed.empty:
+            ax.bar(curr_flawed.index.hour + curr_flawed.index.minute / 60,
+                   [0.1] * len(curr_flawed), width=0.05, align='center', color='red', alpha=0.7)
 
         ax.set_ylim(0, 1.1)
         ax.tick_params(left=False, bottom=False)
@@ -37,7 +42,7 @@ def raster_plot(df, spider, group_name, end_date, raster_path, condition_days, a
         ax.set_xlabel("")
 
         if j == 1:
-            ax.set_title(f"{spider[:-4]}")
+            ax.set_title(f"{subject}")
 
         if j == len(df["Day"].unique()):
             ax.set_xticks(np.arange(0, 25, 2))
@@ -48,7 +53,7 @@ def raster_plot(df, spider, group_name, end_date, raster_path, condition_days, a
         #    average_raster()
             
 
-    file_path = os.path.join(raster_path, f"{spider}_{end_date}_raster_plot.png")
+    file_path = os.path.join(raster_path, f"{subject}_{end_date}_raster_plot.png")
     plt.savefig(file_path)
     plt.close(fig23)
 
