@@ -32,6 +32,7 @@ The pipeline will look for data in the **Data folder** inside **circadian pipeli
 **Ls_Result**: This input tells the Lomb-Scargle processing code what you would like to generate. One of the following words should come after the binarized input:
 
 *value*: This will tell the code to only write the Lomb-Scargle information to a text file and not generate any periodograms. In our example, the name of the file generated was "MsD_0718 _LS_info.txt". If the file already exists, it will be **overwritten**.
+
 <img width="575" alt="Screenshot 2024-07-28 at 7 09 18 PM" src="https://github.com/user-attachments/assets/b834df8d-ae04-4d5e-ab0c-ff9ce1c2e77f">
 
 *display*: This will tell the code to write the information to the text file and also display the periodograms on the command line, if that is supported on your machine. 
